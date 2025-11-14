@@ -1,4 +1,4 @@
-# TravelNk - Modern AI Travel Planning Platform
+# TravelPal - Modern AI Travel Planning Platform
 
 A stunning, modern travel website built with React, Tailwind CSS, and Framer Motion. Features an AI-powered travel assistant, interactive UI components, and smooth animations throughout.
 
@@ -222,4 +222,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ---
 
-**TravelNk** - Where AI meets adventure. Plan your next journey with intelligence and style. ✈️🌍
+**TravelPal** - Where AI meets adventure. Plan your next journey with intelligence and style. ✈️🌍
