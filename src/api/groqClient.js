@@ -1,7 +1,7 @@
 // Call backend API instead of using Groq SDK directly in browser
 export async function groqQuery(prompt) {
   try {
-    console.log("🚀 Sending to backend:", prompt);
+    console.log("Sending to backend:", prompt);
     
     const response = await fetch("http://localhost:5000/chat", {
       method: "POST",
@@ -11,7 +11,7 @@ export async function groqQuery(prompt) {
       body: JSON.stringify({ message: prompt }),
     });
 
-    console.log("📡 Response status:", response.status);
+    console.log("Response status:", response.status);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

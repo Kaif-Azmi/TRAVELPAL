@@ -87,11 +87,16 @@ const Navbar = () => {
               {/* Logo */}
               <motion.a
                 href="#home"
-                className="text-2xl font-display font-bold tracking-wide text-slate-900 hover:text-primary-500 transition-colors"
+                className="flex items-center"
                 whileHover={{ scale: 1.04 }}
               >
-                <span className="text-primary-500">.</span>TravelPal
+                <img
+                  src="/logo-v2.svg"
+                  alt="Logo"
+                  className="h-16 w-16 object-contain"
+                />
               </motion.a>
+
 
 
 
@@ -104,17 +109,16 @@ const Navbar = () => {
                       key={item.name}
                       href={item.href}
                       onClick={(e) => handleNavClick(e, item.href)}
-                      className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                        isActive 
-                          ? 'text-primary-500 bg-primary-500/10' 
+                      className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${isActive
+                          ? 'text-primary-500 bg-primary-500/10'
                           : 'text-slate-700 hover:text-primary-500 hover:bg-neutral-100'
-                      }`}
+                        }`}
                       whileHover={{ y: -2 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      <FontAwesomeIcon 
-                        icon={item.icon} 
-                        className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`} 
+                      <FontAwesomeIcon
+                        icon={item.icon}
+                        className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`}
                       />
                       <span>{item.name}</span>
                       {isActive && (
@@ -131,7 +135,7 @@ const Navbar = () => {
               </div>
 
               {/* CTA */}
-              <motion.button 
+              <motion.button
                 className="hidden md:block px-6 py-2.5 rounded-lg bg-primary-500 text-white font-medium shadow-md hover:bg-primary-600 hover:shadow-lg transition-all"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
@@ -162,17 +166,16 @@ const Navbar = () => {
                     key={item.name}
                     href={item.href}
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all ${
-                      isActive 
-                        ? 'text-primary-500 bg-primary-500/10' 
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all ${isActive
+                        ? 'text-primary-500 bg-primary-500/10'
                         : 'text-slate-700 hover:text-primary-500 hover:bg-neutral-100'
-                    }`}
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <FontAwesomeIcon 
-                      icon={item.icon} 
-                      className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`} 
+                    <FontAwesomeIcon
+                      icon={item.icon}
+                      className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`}
                     />
                     <span className="hidden sm:block">{item.name}</span>
                   </motion.a>
