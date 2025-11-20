@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -12,29 +11,22 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <Router>
-      <div className="App bg-gradient-to-br from-dark-900 via-dark-800 to-dark-900 min-h-screen">
-        <Navbar />
-        
-        <Routes>
-          <Route path="/" element={
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            >
-              <Hero />
-              <Categories />
-              <About />
-              <Timeline />
-              <Experiences />
-              <AIAssistant />
-              <Footer />
-            </motion.div>
-          } />
-        </Routes>
-      </div>
-    </Router>
+    <div className="App bg-gradient-to-br from-neutral-50 via-white to-neutral-50 min-h-screen">
+      <Navbar />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Hero />
+        <Categories />
+        <About />
+        <Timeline />
+        <Experiences />
+        <AIAssistant />
+        <Footer />
+      </motion.div>
+    </div>
   );
 }
 

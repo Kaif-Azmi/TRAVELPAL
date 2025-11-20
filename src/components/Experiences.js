@@ -1,13 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Star,
-  Clock,
-  Users,
-  ArrowRight,
-  MapPin,
-} from "lucide-react";
+  faStar,
+  faClock,
+  faUsers,
+  faArrowRight,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Experiences = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
@@ -23,7 +24,7 @@ const Experiences = () => {
       rating: 4.9,
       reviews: 127,
       tags: ["Adventure", "Mountains", "Culture"],
-      bg: "from-green-400 to-blue-500",
+      bg: "from-accent-500 to-sky-500",
       location: "Switzerland",
       delay: 0,
     },
@@ -37,7 +38,7 @@ const Experiences = () => {
       rating: 4.8,
       reviews: 203,
       tags: ["Beach", "Culture", "Relaxation"],
-      bg: "from-blue-400 to-cyan-500",
+      bg: "from-sky-500 to-indigo-500",
       location: "Indonesia",
       delay: 0.1,
     },
@@ -51,15 +52,21 @@ const Experiences = () => {
       rating: 4.9,
       reviews: 156,
       tags: ["Culture", "Nature", "Urban"],
-      bg: "from-pink-400 to-purple-500",
+      bg: "from-primary-500 to-indigo-500",
       location: "Japan",
       delay: 0.2,
     },
   ];
 
   return (
-    <section ref={ref} id="experiences" className="py-24 relative">
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+    <section ref={ref} id="experiences" className="py-24 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-accent-400/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
         <motion.div
@@ -68,60 +75,77 @@ const Experiences = () => {
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-display font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-display font-bold text-slate-900 mb-4">
             Featured Experiences
           </h2>
-          <p className="text-white/70 text-lg max-w-2xl mx-auto">
+          <p className="text-slate-700 text-lg max-w-2xl mx-auto">
             Curated adventures designed to deliver unforgettable memories.
           </p>
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {experiences.map((exp) => (
             <motion.div
               key={exp.id}
               initial={{ opacity: 0, y: 30, scale: 0.95 }}
               animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
               transition={{ duration: 0.6, delay: exp.delay }}
-              className="group rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm overflow-hidden hover:border-white/20 transition-all"
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group rounded-3xl bg-white border border-neutral-200/50 overflow-hidden hover:shadow-xl hover:border-neutral-300/50 transition-all duration-300"
             >
-              {/* Image */}
-              <div className={`h-48 bg-gradient-to-br ${exp.bg} relative`}>
-                <div className="absolute top-4 left-4 flex items-center gap-2 bg-black/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                  <MapPin className="w-4 h-4 text-white" />
-                  <span className="text-white text-sm">{exp.location}</span>
-                </div>
+              {/* Image/Gradient Header */}
+              <div className={`h-52 bg-gradient-to-br ${exp.bg} relative overflow-hidden`}>
+                {/* Overlay gradient for better badge visibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                
+                {/* Location Badge */}
+                <motion.div 
+                  className="absolute top-4 left-4 flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <FontAwesomeIcon icon={faLocationDot} className="w-3.5 h-3.5 text-white" />
+                  <span className="text-white text-sm font-medium">{exp.location}</span>
+                </motion.div>
 
-                <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-4 py-1 rounded-full border border-white/20">
-                  <span className="text-white font-semibold">{exp.price}</span>
-                </div>
+                {/* Price Badge */}
+                <motion.div 
+                  className="absolute top-4 right-4 bg-black/40 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <span className="text-white font-bold text-sm">{exp.price}</span>
+                </motion.div>
 
-                <div className="absolute bottom-4 right-4 flex items-center gap-1 bg-black/20 backdrop-blur-md px-3 py-1 rounded-full border border-white/20">
-                  <Star className="w-4 h-4 text-yellow-400" />
-                  <span className="text-white text-sm">{exp.rating}</span>
-                  <span className="text-white/70 text-xs">({exp.reviews})</span>
-                </div>
+                {/* Rating Badge */}
+                <motion.div 
+                  className="absolute bottom-4 right-4 flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20"
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <FontAwesomeIcon icon={faStar} className="w-4 h-4 text-yellow-300" />
+                  <span className="text-white text-sm font-semibold">{exp.rating}</span>
+                  <span className="text-white/80 text-xs">({exp.reviews})</span>
+                </motion.div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-white mb-2 group-hover:text-primary-300 transition">
+              <div className="p-6 bg-white">
+                <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-primary-500 transition-colors duration-300">
                   {exp.title}
                 </h3>
 
-                <p className="text-white/70 text-sm leading-relaxed mb-5">
+                <p className="text-slate-600 text-sm leading-relaxed mb-5">
                   {exp.description}
                 </p>
 
-                <div className="flex items-center gap-5 text-white/60 text-sm mb-6">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {exp.duration}
+                {/* Details */}
+                <div className="flex items-center gap-6 text-slate-600 text-sm mb-5 pb-5 border-b border-neutral-200">
+                  <div className="flex items-center gap-2">
+                    <FontAwesomeIcon icon={faClock} className="w-4 h-4 text-slate-400" />
+                    <span className="font-medium">{exp.duration}</span>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Users className="w-4 h-4" />
-                    {exp.groupSize}
+                  <div className="flex items-center gap-2">
+                    <FontAwesomeIcon icon={faUsers} className="w-4 h-4 text-slate-400" />
+                    <span className="font-medium">{exp.groupSize}</span>
                   </div>
                 </div>
 
@@ -130,7 +154,7 @@ const Experiences = () => {
                   {exp.tags.map((tag, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 text-xs bg-white/10 border border-white/20 rounded-full text-white/80"
+                      className="px-3 py-1.5 text-xs font-medium bg-neutral-100 border border-neutral-200 rounded-full text-slate-700 hover:bg-neutral-200 hover:border-neutral-300 transition-colors"
                     >
                       {tag}
                     </span>
@@ -139,11 +163,12 @@ const Experiences = () => {
 
                 {/* Button */}
                 <motion.button
-                  className="btn-primary w-full flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.03 }}
-                  whileTap={{ scale: 0.96 }}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-xl hover:bg-primary-600 shadow-md hover:shadow-lg transition-all duration-300"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
                 >
-                  Learn More <ArrowRight className="w-4 h-4" />
+                  Learn More 
+                  <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </motion.button>
               </div>
             </motion.div>
@@ -158,11 +183,12 @@ const Experiences = () => {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            className="btn-secondary inline-flex items-center gap-2"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white border-2 border-neutral-200 text-slate-800 font-semibold rounded-xl hover:border-primary-500 hover:text-primary-500 hover:bg-primary-50/50 shadow-sm hover:shadow-md transition-all duration-300"
           >
             View All Experiences
-            <ArrowRight className="w-4 h-4" />
+            <FontAwesomeIcon icon={faArrowRight} className="w-4 h-4" />
           </motion.button>
         </motion.div>
       </div>

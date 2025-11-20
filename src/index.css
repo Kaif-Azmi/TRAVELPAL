@@ -12,6 +12,11 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
     overflow-x: hidden;
   }
+
+  /* Light theme base */
+  body {
+    @apply bg-neutral-50 text-slate-900;
+  }
 }
 
 /* -------------------- COMPONENTS -------------------- */
@@ -19,12 +24,12 @@
 
   /* Glass + Gradients */
   .glass-effect {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+    @apply bg-white/70 backdrop-blur-sm border border-neutral-200;
   }
 
   .glass-card {
-    @apply bg-neutral-900/40 backdrop-blur-sm border border-neutral-800/50 
-           hover:border-neutral-700/50 transition-all duration-200 rounded-2xl;
+    @apply bg-white/90 backdrop-blur-sm border border-neutral-200/50 
+           hover:border-neutral-300/50 transition-all duration-200 rounded-2xl;
   }
 
   .gradient-text {
@@ -32,33 +37,33 @@
   }
 
   .gradient-border {
-    @apply border border-transparent bg-gradient-to-r from-primary-500 to-secondary-500 bg-clip-border;
+    @apply border border-neutral-200 bg-white/90 bg-clip-border;
   }
 
   /* Chat */
   .chat-message-user {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500 text-white shadow-sm;
+    @apply bg-primary-500 text-white shadow-sm;
   }
 
   .chat-message-bot {
-    @apply bg-neutral-800/80 backdrop-blur-sm text-white border border-neutral-700/50 shadow-sm;
+    @apply bg-white/95 backdrop-blur-sm text-slate-800 border border-neutral-200/50 shadow-sm;
   }
 
   .chat-input {
-    @apply bg-neutral-800/50 backdrop-blur-sm border border-neutral-700/50 
-           rounded-lg px-4 py-3 text-white placeholder-neutral-400
-           focus:outline-none focus:ring-2 focus:ring-primary-500 
+    @apply bg-white/90 border border-neutral-200/50 
+           rounded-lg px-4 py-3 text-slate-700 placeholder-neutral-400
+           focus:outline-none focus:ring-2 focus:ring-primary-500/20 
            transition-all duration-200;
   }
 
   .chat-input:focus {
-    @apply bg-neutral-800/80 border-primary-500/50 shadow-sm;
+    @apply bg-white border-primary-500/20 shadow-sm;
   }
 
   .chat-suggestion {
-    @apply flex items-center space-x-2 p-3 bg-neutral-800/50 hover:bg-neutral-700/50 
-           border border-neutral-700/50 hover:border-primary-500/30 
-           rounded-lg text-neutral-300 hover:text-white 
+    @apply flex items-center space-x-2 p-3 bg-white/95 hover:bg-white/100 
+           border border-neutral-200/50 hover:border-primary-500/30 
+           rounded-lg text-slate-700 hover:text-slate-900 
            transition-all duration-200 text-sm;
   }
 
@@ -66,15 +71,15 @@
   .btn-primary {
     @apply relative px-6 py-3 text-white font-medium rounded-lg 
            transition-all duration-200 overflow-hidden;
-    background: linear-gradient(135deg, #0ea5e9, #3b82f6);
-    border: 1px solid rgba(14,165,233,0.2);
-    box-shadow: 0 4px 14px rgba(14,165,233,0.2);
+    background: #e4612e;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 6px 18px rgba(14,14,14,0.06);
   }
 
   .btn-primary:hover {
     @apply -translate-y-0.5;
-    background: linear-gradient(135deg, #0284c7, #2563eb);
-    box-shadow: 0 6px 20px rgba(14,165,233,0.3);
+    background: #c64f27;
+    box-shadow: 0 8px 22px rgba(14,14,14,0.08);
   }
 
   .btn-primary:active {
@@ -82,17 +87,17 @@
   }
 
   .btn-secondary {
-    @apply relative px-6 py-3 text-white font-medium rounded-lg 
+    @apply relative px-6 py-3 text-slate-800 font-medium rounded-lg 
            transition-all duration-200 overflow-hidden;
-    background: linear-gradient(135deg, #a855f7, #8b5cf6);
-    border: 1px solid rgba(168,85,247,0.2);
-    box-shadow: 0 4px 14px rgba(168,85,247,0.2);
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(15,23,42,0.04);
+    box-shadow: 0 6px 12px rgba(14,14,14,0.04);
   }
 
   .btn-secondary:hover {
     @apply -translate-y-0.5;
-    background: linear-gradient(135deg, #9333ea, #7c3aed);
-    box-shadow: 0 6px 20px rgba(168,85,247,0.3);
+    background: rgba(255,255,255,1);
+    box-shadow: 0 8px 18px rgba(14,14,14,0.06);
   }
 
   .btn-secondary:active {
@@ -103,24 +108,24 @@
   .btn-hero {
     @apply relative px-8 py-4 text-white font-semibold text-lg rounded-xl 
            transition-all duration-200 overflow-hidden;
-    background: linear-gradient(135deg, #0ea5e9, #3b82f6, #8b5cf6);
-    border: 1px solid rgba(14,165,233,0.2);
-    box-shadow: 0 8px 25px rgba(14,165,233,0.25);
+    background: #e4612e;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 10px 26px rgba(14,14,14,0.06);
   }
 
   .btn-hero:hover {
     @apply -translate-y-0.5;
-    background: linear-gradient(135deg, #0284c7, #2563eb, #7c3aed);
-    box-shadow: 0 12px 35px rgba(14,165,233,0.35);
+    background: #c64f27;
+    box-shadow: 0 12px 32px rgba(14,14,14,0.08);
   }
 
   /* Common */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-2xl hover:-translate-y-2;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
   }
 
   .text-shadow {
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.04);
   }
 
   /* Typing indicator */
@@ -149,8 +154,8 @@
   }
 
   .icon-box {
-    @apply flex items-center justify-center w-16 h-16 
-           bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl;
+      @apply flex items-center justify-center w-16 h-16 
+        bg-neutral-100 backdrop-blur-sm border border-neutral-200 rounded-2xl;
   }
 
   .animation-delay-200 { animation-delay: 200ms; }
@@ -161,7 +166,7 @@
 
   .chat-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: rgba(59,130,246,0.5) rgba(255,255,255,0.1);
+    scrollbar-color: rgba(228,97,46,0.5) rgba(255,255,255,0.1);
   }
 
   .chat-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -170,11 +175,11 @@
     border-radius: 3px;
   }
   .chat-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, rgba(14,165,233,0.5), rgba(59,130,246,0.5));
+    background: linear-gradient(135deg, rgba(228,97,46,0.5), rgba(117,187,230,0.5));
     border-radius: 3px;
   }
   .chat-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, rgba(14,165,233,0.7), rgba(59,130,246,0.7));
+    background: linear-gradient(135deg, rgba(228,97,46,0.7), rgba(117,187,230,0.7));
   }
 }
 
@@ -183,19 +188,19 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.1);
+  background: rgba(250,250,250,0.5);
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, rgba(14,165,233,0.5), rgba(59,130,246,0.5));
+  background: linear-gradient(135deg, rgba(228,97,46,0.5), rgba(117,187,230,0.5));
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, rgba(14,165,233,0.7), rgba(59,130,246,0.7));
+  background: linear-gradient(135deg, rgba(228,97,46,0.7), rgba(117,187,230,0.7));
 }
 
 ::selection {
-  background: rgba(14,165,233,0.3);
+  background: rgba(228,97,46,0.25);
   color: white;
 }
 

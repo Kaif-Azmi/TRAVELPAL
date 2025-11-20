@@ -1,22 +1,25 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Globe,
-  Sparkles,
-  Mail,
-  Phone,
-  MapPin,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  Youtube,
-  ArrowRight,
-  Heart,
-  Shield,
-  Award,
-} from "lucide-react";
+  faGlobe,
+  faStar,
+  faEnvelope,
+  faPhone,
+  faLocationDot,
+  faArrowRight,
+  faHeart,
+  faShield,
+  faAward,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faTwitter,
+  faInstagram,
+  faLinkedin,
+  faYoutube,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Footer = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 });
@@ -29,11 +32,11 @@ const Footer = () => {
   };
 
   const socials = [
-    { icon: Facebook },
-    { icon: Twitter },
-    { icon: Instagram },
-    { icon: Linkedin },
-    { icon: Youtube },
+    { icon: faFacebook },
+    { icon: faTwitter },
+    { icon: faInstagram },
+    { icon: faLinkedin },
+    { icon: faYoutube },
   ];
 
   return (
@@ -55,37 +58,37 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <div className="relative">
-                <Globe className="h-8 w-8 text-primary-400" />
+                <FontAwesomeIcon icon={faGlobe} className="h-8 w-8 text-primary-400" />
                 <motion.div
                   animate={{ rotate: 360 }}
                   transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                   className="absolute -top-1 -right-1"
                 >
-                  <Sparkles className="h-4 w-4 text-accent-400" />
+                  <FontAwesomeIcon icon={faStar} className="h-4 w-4 text-primary-400" />
                 </motion.div>
               </div>
 
               {/* Logo Name */}
-              <span className="text-2xl font-display font-bold text-white">TravelPal</span>
+              <span className="text-2xl font-display font-bold text-slate-900">TravelPal</span>
             </div>
 
-            <p className="text-white/70 leading-relaxed mb-8 max-w-md">
-              AI-powered travel planning with personalized itineraries, smart recommendations,
+            <p className="text-slate-700 leading-relaxed mb-8 max-w-md">
+              Personalized travel planning with curated itineraries, recommendations,
               and seamless booking — designed to match your style.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 text-white/70">
-                <Mail className="h-5 w-5 text-primary-400" />
+              <div className="flex items-center gap-3 text-slate-700">
+                <FontAwesomeIcon icon={faEnvelope} className="h-5 w-5 text-primary-400" />
                 <span>kaifazmi8573@gmail.com</span>
               </div>
-              <div className="flex items-center gap-3 text-white/70">
-                <Phone className="h-5 w-5 text-primary-400" />
+              <div className="flex items-center gap-3 text-slate-700">
+                <FontAwesomeIcon icon={faPhone} className="h-5 w-5 text-primary-400" />
                 <span>+91-8887852321</span>
               </div>
-              <div className="flex items-center gap-3 text-white/70">
-                <MapPin className="h-5 w-5 text-primary-400" />
+              <div className="flex items-center gap-3 text-slate-700">
+                <FontAwesomeIcon icon={faLocationDot} className="h-5 w-5 text-primary-400" />
                 <span>Ghaziabad, U.P India</span>
               </div>
             </div>
@@ -97,11 +100,11 @@ const Footer = () => {
                   key={i}
                   type="button"
                   whileHover={{ y: -2 }}
-                  className="w-10 h-10 rounded-xl bg-white/10 border border-white/20 
-                             text-white/70 flex items-center justify-center 
-                             hover:border-white/40 transition-all"
+                  className="w-10 h-10 rounded-xl bg-white/95 border border-neutral-200/50 
+                             text-slate-700 flex items-center justify-center 
+                             hover:border-primary-500/40 transition-all"
                 >
-                  <s.icon className="h-5 w-5" />
+                  <FontAwesomeIcon icon={s.icon} className="h-5 w-5" />
                 </motion.button>
               ))}
             </div>
@@ -110,7 +113,7 @@ const Footer = () => {
           {/* Footer Link Columns */}
           {Object.entries(links).map(([title, items], idx) => (
             <div key={idx}>
-              <h3 className="text-lg font-semibold text-white mb-6">{title}</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-6">{title}</h3>
 
               <ul className="space-y-4">
                 {items.map((item, j) => (
@@ -123,10 +126,11 @@ const Footer = () => {
                     <button
                       type="button"
                       className="group flex items-center gap-2 
-                                 text-white/70 hover:text-primary-400 transition-all"
+                                 text-slate-700 hover:text-primary-600 transition-all"
                     >
                       {item}
-                      <ArrowRight
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
                         className="w-3 h-3 opacity-0 
                                    group-hover:opacity-100 group-hover:translate-x-1 
                                    transition-all"
@@ -140,31 +144,31 @@ const Footer = () => {
         </motion.div>
 
         {/* Bottom Footer Bar */}
-        <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 25 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.9 }}
-          className="mt-12 flex flex-col md:flex-row justify-between 
-                     items-center gap-5 border-t border-white/10 pt-6"
+            className="mt-12 flex flex-col md:flex-row justify-between 
+                     items-center gap-5 border-t border-neutral-200/50 pt-6"
         >
-          <div className="text-white/60 flex items-center gap-2">
+          <div className="text-slate-600 flex items-center gap-2">
             © 2024 TravelPal — All rights reserved.
-            <Heart className="w-4 h-4 text-red-400" />
+            <FontAwesomeIcon icon={faHeart} className="w-4 h-4 text-red-400" />
           </div>
 
-          <div className="flex gap-6 text-white/60 text-sm">
+          <div className="flex gap-6 text-slate-600 text-sm">
             <button
               type="button"
-              className="flex items-center gap-1 hover:text-white transition-all"
+              className="flex items-center gap-1 hover:text-slate-900 transition-all"
             >
-              <Shield className="w-4 h-4" /> Privacy Policy
+              <FontAwesomeIcon icon={faShield} className="w-4 h-4" /> Privacy Policy
             </button>
 
             <button
               type="button"
-              className="flex items-center gap-1 hover:text-white transition-all"
+              className="flex items-center gap-1 hover:text-slate-900 transition-all"
             >
-              <Award className="w-4 h-4" /> Terms of Service
+              <FontAwesomeIcon icon={faAward} className="w-4 h-4" /> Terms of Service
             </button>
           </div>
         </motion.div>

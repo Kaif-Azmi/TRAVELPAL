@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Home,
-  MapPin,
-  Users,
-  Bot,
-  Phone,
-} from "lucide-react";
+  faHome,
+  faMapLocation,
+  faUsers,
+  faRobot,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isShrunk, setIsShrunk] = useState(false);
+  const [activeSection, setActiveSection] = useState("home");
 
   useEffect(() => {
     let lastScroll = 0;
@@ -22,6 +23,18 @@ const Navbar = () => {
         setIsShrunk(false);  // scrolling up → expand
       }
       lastScroll = currentScroll;
+
+      // Update active section based on scroll position
+      const sections = ['home', 'destinations', 'experiences', 'ai-assistant'];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -29,12 +42,26 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { name: "Home", href: "#home", icon: Home },
-    { name: "Destinations", href: "#destinations", icon: MapPin },
-    { name: "Experiences", href: "#experiences", icon: Users },
-    { name: "AI Assistant", href: "#ai-assistant", icon: Bot },
-    { name: "Contact", href: "#contact", icon: Phone },
+    { name: "Home", href: "#home", icon: faHome },
+    { name: "Destinations", href: "#destinations", icon: faMapLocation },
+    { name: "Experiences", href: "#experiences", icon: faUsers },
+    { name: "AI Assistant", href: "#ai-assistant", icon: faRobot },
   ];
+
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <motion.nav
@@ -53,41 +80,64 @@ const Navbar = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.35 }}
-            className="bg-neutral-950/70 backdrop-blur-xl border-b border-white/10 shadow-lg"
+            className="bg-white/90 backdrop-blur-sm border-b border-neutral-200/50 shadow-sm"
           >
-            <div className="max-w-7xl mx-auto px-12 h-16 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-16 flex items-center justify-between">
 
               {/* Logo */}
-              <motion.span
-                className="text-2xl font-display font-bold tracking-wide text-white"
+              <motion.a
+                href="#home"
+                className="text-2xl font-display font-bold tracking-wide text-slate-900 hover:text-primary-500 transition-colors"
                 whileHover={{ scale: 1.04 }}
               >
-                TravelPal
-              </motion.span>
+                <span className="text-primary-500">.</span>TravelPal
+              </motion.a>
 
 
 
               {/* Desktop Nav */}
-              <div className="hidden md:flex items-center gap-6">
+              <div className="hidden md:flex items-center gap-2">
                 {navItems.map((item) => {
-                  const Icon = item.icon;
+                  const isActive = activeSection === item.href.replace('#', '');
                   return (
-                    <a
+                    <motion.a
                       key={item.name}
                       href={item.href}
-                      className="flex items-center gap-2 px-3 py-2 text-white/70 hover:text-white hover:bg-white/10 rounded-md transition"
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className={`relative flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                        isActive 
+                          ? 'text-primary-500 bg-primary-500/10' 
+                          : 'text-slate-700 hover:text-primary-500 hover:bg-neutral-100'
+                      }`}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ scale: 0.95 }}
                     >
-                      <Icon className="h-4 w-4 text-primary-300" />
-                      <span className="text-sm">{item.name}</span>
-                    </a>
+                      <FontAwesomeIcon 
+                        icon={item.icon} 
+                        className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`} 
+                      />
+                      <span>{item.name}</span>
+                      {isActive && (
+                        <motion.div
+                          layoutId="activeIndicator"
+                          className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-500 rounded-full"
+                          initial={false}
+                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        />
+                      )}
+                    </motion.a>
                   );
                 })}
               </div>
 
               {/* CTA */}
-              <button className="hidden md:block px-5 py-2 rounded-md bg-primary-600 text-white font-medium shadow-sm hover:bg-primary-500 transition-all">
-  Get Started
-</button>
+              <motion.button 
+                className="hidden md:block px-6 py-2.5 rounded-lg bg-primary-500 text-white font-medium shadow-md hover:bg-primary-600 hover:shadow-lg transition-all"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Get Started
+              </motion.button>
 
             </div>
           </motion.div>
@@ -103,19 +153,29 @@ const Navbar = () => {
             transition={{ duration: 0.35 }}
             className="w-full flex justify-center pointer-events-none"
           >
-            <div className="pointer-events-auto mt-3 px-6 py-3 bg-neutral-900/80 backdrop-blur-xl border border-white/10 shadow-lg rounded-full flex gap-4">
+            <div className="pointer-events-auto mt-3 px-4 py-2.5 bg-white/95 backdrop-blur-md border border-neutral-200/50 shadow-lg rounded-full flex gap-2">
 
               {navItems.map((item) => {
-                const Icon = item.icon;
+                const isActive = activeSection === item.href.replace('#', '');
                 return (
-                  <a
+                  <motion.a
                     key={item.name}
                     href={item.href}
-                    className="flex items-center gap-1 text-white/80 hover:text-white transition"
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium transition-all ${
+                      isActive 
+                        ? 'text-primary-500 bg-primary-500/10' 
+                        : 'text-slate-700 hover:text-primary-500 hover:bg-neutral-100'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    <Icon className="h-5 w-5 text-primary-300" />
-                    <span className="hidden sm:block text-sm">{item.name}</span>
-                  </a>
+                    <FontAwesomeIcon 
+                      icon={item.icon} 
+                      className={`h-4 w-4 ${isActive ? 'text-primary-500' : 'text-primary-400'}`} 
+                    />
+                    <span className="hidden sm:block">{item.name}</span>
+                  </motion.a>
                 );
               })}
 
